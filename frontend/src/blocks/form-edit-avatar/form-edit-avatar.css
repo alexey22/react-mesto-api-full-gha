@@ -1,0 +1,14 @@
+.form-edit-avatar {
+  width: 430px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+  .form-edit-avatar {
+    width: calc(100vw - 19px - 19px);
+  }
+}

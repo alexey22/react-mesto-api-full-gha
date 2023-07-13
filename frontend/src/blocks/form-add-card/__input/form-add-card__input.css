@@ -1,0 +1,22 @@
+.form-add-card__input {
+  width: 358px;
+  padding: 0;
+  box-sizing: border-box;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  height: 27px;
+  font-size: 14px;
+  line-height: 16.94px;
+  font-weight: 400;
+}
+
+/* .form-add-card__input:not(:nth-of-type(1)) {
+  margin-top: 30px;
+} */
+
+@media screen and (max-width: 600px) {
+  .form-add-card__input {
+    width: calc(100% - 22px - 22px);
+  }
+}

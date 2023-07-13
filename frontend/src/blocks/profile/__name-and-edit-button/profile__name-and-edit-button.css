@@ -1,0 +1,10 @@
+.profile__name-and-edit-button {
+  display: flex;
+}
+
+@media screen and (max-width: 900px) {
+  .profile__name-and-edit-button {
+    justify-content: center;
+    margin-left: 28px;
+  }
+}
