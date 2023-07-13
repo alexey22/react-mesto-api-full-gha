@@ -29,7 +29,7 @@ const validUrl = (url) => {
 };
 
 router.post(
-  '/signup',
+  '/api/signup',
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().min(2).max(30),
@@ -43,7 +43,7 @@ router.post(
 );
 
 router.post(
-  '/signin',
+  '/api/signin',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().email().custom(validEmail),
@@ -55,8 +55,8 @@ router.post(
 
 router.use(auth);
 
-router.use('/users', userRoutes);
-router.use('/cards', cardRoutes);
+router.use('/api/users', userRoutes);
+router.use('/api/cards', cardRoutes);
 router.use('*', notFoundRoute);
 
 module.exports = router;
