@@ -27,7 +27,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(requestLogger);
 
-app.use('/app', router);
+app.use(router);
 
 app.use(errorLogger);
 
