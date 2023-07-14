@@ -34,10 +34,33 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
-  useNewUrlParser: true,
-  family: 4,
-});
+const startServer = async () => {
+  try {
+    await mongoose.connect('mongodb://localhost:27017/mestodb', {
+      useNewUrlParser: true,
+      family: 4,
+    });
+    // eslint-disable-next-line no-console
+    console.log('Успешно подключено к MongoDB');
+
+    try {
+      app.listen(PORT, () => {
+        // eslint-disable-next-line no-console
+        console.log('Ссылка на сервер');
+        // eslint-disable-next-line no-console
+        console.log(BASE_PATH);
+      });
+      // eslint-disable-next-line no-console
+      console.log(`Сервер успешно запущен на порте: ${PORT}`);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log('Ошибка запуска сервера', err);
+    }
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log('Ошибка подключения к MongoDB', err);
+  }
+};
 
 app.use(requestLogger);
 
@@ -55,9 +78,4 @@ app.use(errors()); // обработчик ошибок celebrate
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log('Ссылка на сервер');
-  // eslint-disable-next-line no-console
-  console.log(BASE_PATH);
-});
+startServer();
