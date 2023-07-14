@@ -52,7 +52,7 @@ const createUser = (req, res, next) => {
             about,
             avatar,
           })
-            .then((userFind) => res.status(201).send(userFind))
+            .then((userFind) => res.status(201).send({ data: userFind }))
             .catch((err) => {
               if (err.name === 'ValidationError') {
                 next(
@@ -146,17 +146,18 @@ const login = (req, res, next) => {
                 _id: user._id,
               },
               process.env['JWT.SECRET'],
+              { expiresIn: '7d' },
             );
 
             // прикрепить его к куке
-            res.cookie('jwt', jwt, {
-              maxAge: 604800,
-              httpOnly: true,
-              sameSite: true,
-            });
+            // res.cookie('jwt', jwt, {
+            //   maxAge: 604800,
+            //   httpOnly: true,
+            //   sameSite: true,
+            // });
 
             // Если совпадает -- вернуть пользователя
-            res.send(user.toJSON());
+            res.send({ ...user.toJSON(), token: jwt });
           } else {
             // Если не совпадает -- вернуть ошибку
 

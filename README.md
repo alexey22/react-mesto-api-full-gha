@@ -10,8 +10,8 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 158.160.76.73
 
-Frontend https://...
+Frontend https://musli.nomoredomains.work/
 
-Backend https://...
+Backend https://api.musli.nomoredomains.work/

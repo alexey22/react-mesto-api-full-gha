@@ -6,6 +6,7 @@ const Card = require('../models/card');
 
 const getAllCards = (req, res, next) => {
   Card.find({})
+    .populate(['owner', 'likes'])
     .then((cards) => {
       res.status(200).send(cards);
     })
@@ -19,7 +20,13 @@ const createCard = (req, res, next) => {
   const owner = req.user._id;
   Card.create({ name, link, owner })
     .then((card) => {
-      res.status(201).send(card);
+      res.status(201).send({
+        // eslint-disable-next-line dot-notation
+        ...card['_doc'],
+        owner: { _id: card.owner.toString() },
+        _id: card._id.toString(),
+      });
+      // res.status(201).send(card);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -70,6 +77,7 @@ const addCardLike = (req, res, next) => {
     { $addToSet: { likes: userId } },
     { new: true },
   )
+    .populate(['owner', 'likes'])
     .then((card) => {
       if (card) {
         res.status(200).send(card);
@@ -90,6 +98,7 @@ const deleteCardLike = (req, res, next) => {
   const { cardId } = req.params;
   const userId = req.user._id;
   Card.findByIdAndUpdate(cardId, { $pull: { likes: userId } }, { new: true })
+    .populate(['owner', 'likes'])
     .then((card) => {
       if (card) {
         res.status(200).send(card);
