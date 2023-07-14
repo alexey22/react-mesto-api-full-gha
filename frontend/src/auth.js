@@ -1,6 +1,6 @@
 // export const BASE_URL = 'http://localhost:3000';
 // export const BASE_URL = 'https://auth.nomoreparties.co';
-export const BASE_URL = 'https://api.musli.nomoredomains.work/';
+export const BASE_URL = 'https://api.musli.nomoredomains.work';
 
 function handleResponse(res) {
   if (res.ok) {
