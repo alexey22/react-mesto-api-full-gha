@@ -11,8 +11,18 @@ const errorHandler = require('./middlewares/error');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000, BASE_PATH } = process.env;
-process.env['JWT.SECRET'] = process.env['JWT.SECRET'] || 'SUPER-SECRET-KEY';
+// получаем данные из файла .env
+// eslint-disable-next-line no-unused-vars
+const { NODE_ENV } = process.env;
+
+// если нет файла .env
+if (NODE_ENV !== 'production') {
+  process.env.NODE_ENV = 'development';
+  process.env.JWT_SECRET = 'SUPER-SECRET-KEY';
+  process.env.PORT = '3000';
+  process.env.BASE_PATH = 'http://localhost:3000';
+}
+
 const app = express();
 
 app.use(
@@ -44,14 +54,14 @@ const startServer = async () => {
     console.log('Успешно подключено к MongoDB');
 
     try {
-      app.listen(PORT, () => {
+      app.listen(process.env.PORT, () => {
         // eslint-disable-next-line no-console
         console.log('Ссылка на сервер');
         // eslint-disable-next-line no-console
-        console.log(BASE_PATH);
+        console.log(process.env.BASE_PATH);
       });
       // eslint-disable-next-line no-console
-      console.log(`Сервер успешно запущен на порте: ${PORT}`);
+      console.log(`Сервер успешно запущен на порте: ${process.env.PORT}`);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log('Ошибка запуска сервера', err);

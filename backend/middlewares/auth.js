@@ -23,7 +23,8 @@ const auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, process.env['JWT.SECRET']);
+    // eslint-disable-next-line dot-notation
+    payload = jwt.verify(token, process.env['JWT_SECRET']);
   } catch (err) {
     return next(new UnauthorizedError('Необходима авторизация'));
   }

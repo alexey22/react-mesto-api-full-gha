@@ -145,7 +145,8 @@ const login = (req, res, next) => {
               {
                 _id: user._id,
               },
-              process.env['JWT.SECRET'],
+              // eslint-disable-next-line dot-notation
+              process.env['JWT_SECRET'],
               { expiresIn: '7d' },
             );
 
